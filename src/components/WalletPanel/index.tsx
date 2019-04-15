@@ -12,7 +12,7 @@ export interface WalletPanelProps {
   checkUserStateAndSell(): void,
 }
 
-const WalletPanel: React.SFC<WalletPanelProps> = ({ activeProvider, checkUserStateAndSell }) => (
+const WalletPanel: React.SFC<WalletPanelProps> = ({ /*activeProvider,*/ checkUserStateAndSell }) => (
   <AuctionContainer auctionDataScreen="details">
     <AuctionHeader backTo="/order">
       Confirm Deposit Details
@@ -20,24 +20,21 @@ const WalletPanel: React.SFC<WalletPanelProps> = ({ activeProvider, checkUserSta
     <AuctionAmountSummary />
     <AuctionPriceBar header="Price" />
     <AuctionWalletSummary />
-      <h2><strong>Regular DutchX Auction Process</strong></h2>
+      <h2><strong>Regular DutchX (payout in ~6 hours)</strong></h2>
       <p>
-        <br></br>
-        When submitting your order, you will be asked to sign transactions with {activeProvider || 'your Wallet provider'}.
-        Explanations will be provided with each transaction.
-        Upon final confirmation, your deposit will be added on your behalf to the next auction.
+        {/*When submitting your order, you will be asked to sign transactions with {activeProvider || 'your Wallet provider'}.
+        Explanations will be provided with each transaction.Upon final confirmation, your deposit will be added on your behalf to the next auction.*/}
         <br/>
-        <br/>
-        Every auction takes approx. 6 hours.
+        Sell through the regular DutchX auction process and be able to claim your funds in approximately 6 hours.
       </p>
     <ButtonCTA onClick={checkUserStateAndSell}>
-      Sell via regular auction process
+      Sell via DutchX
     </ButtonCTA>
       <p>
       <br></br>
         OR
       </p>
-      <h2><strong>Receive instant payouts</strong></h2>
+      <h2><strong>InstantDX (instant payout)</strong></h2>
       <p>
       <br></br>
       Receive 80% of OMG tokens instanly and the remaining 20% after the auction has ended (approx 6 hours). Fee: 0.1% of final auction receivables. Click <a href="">here</a> for more info

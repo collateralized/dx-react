@@ -23,7 +23,7 @@ const AuctionProgress: React.SFC<AuctionProgressProps> = ({ progress, marks }) =
     <span>
       <i className={progress >= 1 ? 'active' : null} data-icon={marks[0] ? 'ok' : null}>
         <img src={arrowDownStep} />
-        <small>DEPOSIT CONFIRMED</small>
+        <small>1st Payout complete</small>
       </i>
       <i className={progress >= 2 ? 'active' : null} data-icon={marks[1] ? 'ok' : null}>
         <img src={auctionStep} />
@@ -31,7 +31,7 @@ const AuctionProgress: React.SFC<AuctionProgressProps> = ({ progress, marks }) =
       </i>
       <i className={progress >= 3 ? 'active' : null} data-icon={marks[2] ? 'ok' : null}>
         <img src={walletStep} />
-        <small>CLAIM TOKENS TO YOUR WALLET</small>
+        <small>2nd Payout complete</small>
       </i>
     </span>
   </div>

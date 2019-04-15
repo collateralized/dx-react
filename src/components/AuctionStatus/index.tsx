@@ -1,10 +1,10 @@
 import React from 'react'
-import TokenClaimingHOC, { TokenClaimingState } from 'components/TokenClaimingHOC'
+// import TokenClaimingHOC, { TokenClaimingState } from 'components/TokenClaimingHOC'
 
 import { BigNumber, DefaultTokenObject } from 'types'
 import { AuctionStatus as Status } from 'globals'
 
-import claim from 'assets/claim.svg'
+// import claim from 'assets/claim.svg'
 import { getTimingApproximations } from 'utils/timings'
 
 export interface AuctionStatusProps {
@@ -35,12 +35,12 @@ const statusText: { [T in Status]: string } = {
   [Status.ENDED]: 'Ended',
   // WHAT should Status.INACTIVE be?
   [Status.INACTIVE]: 'Inactive ',
-  [Status.INIT]: 'Not Started',
+  [Status.INIT]: '1st Payout complete',
   [Status.PLANNED]: 'Not Started',
 }
 
 const translateStatus2Text = (str: string) => statusText[str] || str
-
+/*
 const ShowStatus: React.SFC<AuctionStatusProps & TokenClaimingState & { claimTokens: () => {} }> = ({
   // timeLeft,
   sellAmount,
@@ -89,8 +89,8 @@ const ShowStatus: React.SFC<AuctionStatusProps & TokenClaimingState & { claimTok
       return null
   }
 }
-
 const ShowStatusWithClaiming = TokenClaimingHOC(ShowStatus)
+*/
 
 type ShowTimingProps = Pick<AuctionStatusProps, 'auctionStart' | 'status' | 'buyToken' | 'sellAmount' | 'now'>
 
@@ -103,20 +103,21 @@ const ShowTiming: React.SFC<ShowTimingProps> = ({ auctionStart, status, buyToken
 
   const userParticipates = sellAmount.gt(0)
 
-  const { willStart, willEnd, runFor, claim } = timings
+  const { /*willStart,*/ willEnd, /*runFor,*/ claim } = timings
 
-  let auctionStr = 'The auction '
+  const auctionStr = 'You just received the 1st payout.'
+  /*
   if (willEnd === 'soon') auctionStr += `will end ${willEnd}`
   else if (willEnd) auctionStr += `is running and will end ${willEnd}`
   else if (willStart) {
     auctionStr += `will start ${willStart}`
     if (runFor) auctionStr += ` and run for ${runFor}`
   }
-
+  */
   const bToken = buyToken.symbol || buyToken.name || buyToken.address
 
   let claimStr
-  if (userParticipates && claim && !willEnd) claimStr = `You may claim your ${bToken} ${claim}`
+  if (userParticipates && claim && !willEnd) claimStr = `The remaining ${bToken} will be transferred to your wallet ${claim}`
 
   return (
       <p>
@@ -146,7 +147,7 @@ const AuctionStatus: React.SFC<AuctionStatusProps> = props => {
           <big data-status={status}>{translateStatus2Text(status)}</big>
         </span>
 
-        <ShowStatusWithClaiming {...props} />
+        {/*<ShowStatusWithClaiming {...props} />*/}
         <ShowTiming {...props} />
       </div>
   )

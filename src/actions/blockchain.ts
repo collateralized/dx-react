@@ -562,7 +562,7 @@ export const submitSellOrder = () => async (dispatch: any, getState: () => State
       modalName: 'TransactionModal',
       modalProps: {
         header: 'Order confirmation',
-        body: `Final confirmation: Please confirm/cancel your ${sellName.symbol} order via ${name || 'your wallet provider'}. Your deposit will be placed into the next running auction. You are submitting your order to the blockchain.`,
+        body: `Final confirmation: Please confirm/cancel your ${sellName.symbol} order via ${name || 'your wallet provider'}. You will receive ${parseFloat(sellAmount) * 0.8} ${buyName.symbol} (80% of ${sellAmount} instantly). Meanwhile, your deposit will be placed into the next running auction and you will receive the remainder after the auction settles. `,
         txData: {
           tokenA: { ...sell, ...sellName } as DefaultTokenObject,
           tokenB: { ...buy, ...buyName } as DefaultTokenObject,
@@ -583,7 +583,12 @@ export const submitSellOrder = () => async (dispatch: any, getState: () => State
     if (nativeSellAmt.greaterThan(userDXBalance)) {
 
       console.log('PROMPTING to start depositAndSell tx')
+      alert('SELLING VIA INTANT DX')
+      // INPUT web3 function call to send ETH to InstantDX contract, then fetch Instant DX Escrow contract and use its address = currentAccount.
+      // Call depositAndSell with InstantDX contract
+      // PAYOUT 1 to customer
       hash = await depositAndSell.sendTransaction(sell, buy, nativeSellAmt.toString(), currentAccount)
+      alert('TX send to INTANT DX')
       console.log('depositAndSell tx hash', hash)
     // else User has enough balance on DX for Token and can sell w/o deposit
     } else {
@@ -592,8 +597,11 @@ export const submitSellOrder = () => async (dispatch: any, getState: () => State
       hash = await postSellOrder.sendTransaction(sell, buy, nativeSellAmt.toString(), +index, currentAccount)
       console.log('postSellOrder tx hash', hash)
     }
+    // Wait for tx being mined
+    // Waiting for Tx to be mined....
     const receipt = await waitForTx(hash)
     console.log('postSellOrder tx receipt: ', receipt)
+    alert('INSTANT DX SOLD & mined')
 
     const { DutchExchange } = contractsMap
     const decoder = getDecoderForABI(DutchExchange.abi)

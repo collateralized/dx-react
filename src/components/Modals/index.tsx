@@ -1,4 +1,4 @@
- import React, { CSSProperties } from 'react'
+import React, { CSSProperties } from 'react'
 import { BigNumber, Modal } from 'types'
 import { closeModal } from 'actions'
 import { network2URL, ETHEREUM_NETWORKS, FIXED_DECIMALS, COMPANY_NAME } from 'globals'
@@ -11,20 +11,20 @@ import { displayUserFriendlyError, geoBlockedCitiesToString } from 'utils'
 const GEO_BLOCKED_COUNTIES_LIST = geoBlockedCitiesToString({ DE: 'Germany' })
 
 interface TransactionModalProps {
-   activeProvider?: string,
-   closeModal?: typeof closeModal,
-   modalProps: Modal['modalProps'],
-   error?: string,
- }
+  activeProvider?: string,
+  closeModal?: typeof closeModal,
+  modalProps: Modal['modalProps'],
+  error?: string,
+}
 
 interface ApprovalModalProps extends TransactionModalProps {
-   approvalButton: any,
- }
+  approvalButton: any,
+}
 
 interface BlockModalProps extends TransactionModalProps {
-   disabledReason: string,
-   networkAllowed?: Partial<ETHEREUM_NETWORKS>,
- }
+  disabledReason: string,
+  networkAllowed?: Partial<ETHEREUM_NETWORKS>,
+}
 
 export const TransactionModal: React.SFC<TransactionModalProps> = ({
   modalProps: {
@@ -154,7 +154,7 @@ export const ApprovalModal: React.SFC<ApprovalModalProps> = ({
 const blockModalStyle: CSSProperties = { fontSize: 16, fontWeight: 100 }
 
 const disabledReasons = {
-   geoblock: {
+  geoblock: {
      title: `${COMPANY_NAME} is currently not available.`,
      render: () =>
       <div style={blockModalStyle}>
@@ -168,7 +168,7 @@ const disabledReasons = {
         <small><i>Read about the many trading advantages of slow.trade’s underlying DutchX protocol <a href="https://blog.gnosis.pm/tagged/dutchx" target="_blank" rel="noopener noreferrer">here</a>.</i></small>
       </div>,
    },
-   networkblock: {
+  networkblock: {
      title: `${COMPANY_NAME} is not available on your network.`,
      render: (network = 'RINKEBY Test Network') =>
     <div style={blockModalStyle}>
@@ -178,7 +178,7 @@ const disabledReasons = {
       <small><i>Read about the many trading advantages of slow.trade’s underlying DutchX protocol <a href="https://blog.gnosis.pm/tagged/dutchx" target="_blank" rel="noopener noreferrer">here</a>.</i></small>
     </div>,
    },
- }
+}
 
 export const BlockModal: React.SFC<BlockModalProps> = ({
   disabledReason,
